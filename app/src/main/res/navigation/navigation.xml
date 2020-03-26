@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    app:startDestination="@id/mainViewFragment">
+
+    <fragment
+        android:id="@+id/habitEditorFragment"
+        android:name="com.example.habittracker.HabitEditorFragment"
+        android:label="@string/habitEditorFragmentLabel">
+        <action
+            android:id="@+id/action_habitEditorFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment"
+            app:popUpTo="@id/mainViewFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="habitIndex"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.habittracker.AboutFragment"
+        android:label="@string/aboutFragmentLabel" />
+    <fragment
+        android:id="@+id/mainViewFragment"
+        android:name="com.example.habittracker.MainViewFragment"
+        android:label="@string/mainViewFragmentLabel">
+        <action
+            android:id="@+id/action_mainViewFragment_to_habitEditorFragment"
+            app:destination="@id/habitEditorFragment" />
+    </fragment>
+</navigation>
