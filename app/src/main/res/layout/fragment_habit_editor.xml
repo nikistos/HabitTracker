@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewModel"
+            type="com.example.habittracker.editor.HabitEditorViewModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -46,7 +54,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/habit_name"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@{viewModel.habit.name}"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,7 +72,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/habit_description"
-                        android:maxLines="1" />
+                        android:maxLines="1"
+                        android:text="@{viewModel.habit.description}"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -83,7 +93,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:editable="false"
-                    android:hint="@string/priority_hint" />
+                    android:hint="@string/priority_hint"
+                    android:text="@{viewModel.habit.priority}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <RadioGroup
@@ -150,7 +161,8 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:text="@{Integer.toString(viewModel.habit.repeatCount)}"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -171,10 +183,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:editable="false"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
                         android:hint="@string/periodicity_hint"
-                        android:text="@string/Day" />
+                        android:text="@{viewModel.habit.period}"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/addHabitButton"
@@ -183,7 +197,8 @@
                 android:layout_marginVertical="16dp"
                 android:text="@string/add_new_habit"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                android:visibility="@{viewModel.isNewHabit ? View.VISIBLE : View.INVISIBLE}"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/saveHabitButton"
@@ -191,10 +206,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="16dp"
                 android:text="@string/save_button"
-                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                tools:visibility="visible" />
+                tools:visibility="visible"
+                android:visibility="@{viewModel.isNewHabit ? View.INVISIBLE : View.VISIBLE}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

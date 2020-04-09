@@ -14,13 +14,23 @@
     <string name="periodicity_hint">period</string>
     <string name="save_button">save</string>
     <string name="Day">Day</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="about">Офигенный трекер привычек. Для доната: 4276 8273 8247 2884</string>
+    <string name="about">Офигенный трекер привычек. Для доната: 9999 9999 9999 9999</string>
     <string name="mainViewFragmentLabel">My habits</string>
     <string name="habitEditorFragmentLabel">Habit editor</string>
     <string name="aboutFragmentLabel">About</string>
     <string name="menuAboutItem">About</string>
     <string name="myHabits">My habits</string>
+
+    <string-array name="periodicity">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
+
+    <string-array name="priority">
+        <item>Not high</item>
+        <item>High</item>
+        <item>Very high</item>
+    </string-array>
 </resources>
