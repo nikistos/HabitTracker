@@ -56,24 +56,32 @@ class HabitListFragment : Fragment() {
             )
         }
 
-        habitRecycleView.layoutManager = LinearLayoutManager(context)
-
         viewModel.habits.observe(viewLifecycleOwner, Observer { habits ->
             habitRecycleView.also {
+                habitRecycleView.layoutManager = LinearLayoutManager(context)
                 it.adapter = when (habitType) {
-                    GOOD_HABITS -> HabitAdapter(habits.filter { n -> n.type == HabitType.Good })
-                    else -> HabitAdapter(habits.filter { n -> n.type == HabitType.Bad })
+                    GOOD_HABITS -> HabitAdapter(viewModel.getSortedList(HabitType.Good))
+                    else -> HabitAdapter(viewModel.getSortedList(HabitType.Bad))
                 }
             }
         })
 
         viewModel.filterText.observe(viewLifecycleOwner, Observer {
             habitRecycleView.also {
+                habitRecycleView.layoutManager = LinearLayoutManager(context)
                 it.adapter = when (habitType) {
-                    GOOD_HABITS -> HabitAdapter(viewModel.habits.value!!.filter { n ->
-                        n.type == HabitType.Good && n.name.trim().startsWith(viewModel.filterText.value!!)})
-                    else -> HabitAdapter(viewModel.habits.value!!.filter { n ->
-                        n.type == HabitType.Bad && n.name.trim().startsWith(viewModel.filterText.value!!)})
+                    GOOD_HABITS -> HabitAdapter(viewModel.getSortedList(HabitType.Good))
+                    else -> HabitAdapter(viewModel.getSortedList(HabitType.Bad))
+                }
+            }
+        })
+
+        viewModel.isSortByAscendingIds.observe(viewLifecycleOwner, Observer {
+            habitRecycleView.also {
+                habitRecycleView.layoutManager = LinearLayoutManager(context)
+                it.adapter = when (habitType) {
+                    GOOD_HABITS -> HabitAdapter(viewModel.getSortedList(HabitType.Good))
+                    else -> HabitAdapter(viewModel.getSortedList(HabitType.Bad))
                 }
             }
         })

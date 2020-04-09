@@ -21,6 +21,11 @@
     <string name="aboutFragmentLabel">About</string>
     <string name="menuAboutItem">About</string>
     <string name="myHabits">My habits</string>
+    <string name="find_habit">Search</string>
+    <string name="name_starts_with">Name starts with</string>
+    <string name="creation_date">Sort by creation date</string>
+    <string name="asc">ASC</string>
+    <string name="desc">DES</string>
 
     <string-array name="periodicity">
         <item>Day</item>

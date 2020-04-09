@@ -29,6 +29,14 @@ class FiltrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        ascButton.setOnClickListener {
+            viewModel.isSortByAscendingIds.value = true
+        }
+
+        descButton.setOnClickListener {
+            viewModel.isSortByAscendingIds.value = false
+        }
+
         habitFilter.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
