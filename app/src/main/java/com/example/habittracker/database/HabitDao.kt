@@ -7,8 +7,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.habittracker.R
-
 
 @Dao
 interface HabitDao {
@@ -22,7 +20,7 @@ interface HabitDao {
     fun getHabitById(key: Int): HabitEntity
 
     @Query("SELECT * FROM habits")
-    fun getAllHabits(): List<HabitEntity>
+    fun getAllHabits(): LiveData<List<HabitEntity>>
 
     @Query("SELECT * FROM habits WHERE type = 'Bad'")
     fun getBadHabits(): List<HabitEntity>

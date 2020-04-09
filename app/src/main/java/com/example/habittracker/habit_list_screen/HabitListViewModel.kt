@@ -10,21 +10,15 @@ import com.example.habittracker.database.HabitType
 class HabitListViewModel(database: HabitDao) : ViewModel() {
 
     private val dataSource = database
-    private val _habits = MutableLiveData<List<HabitEntity>>()
 
-    val habits: LiveData<List<HabitEntity>>
-        get() = _habits
-
+    val habits = database.getAllHabits()
 
     var filterText = MutableLiveData<String>("")
     var isSortByAscendingIds = MutableLiveData<Boolean>(true)
 
-    init {
-        _habits.value = dataSource.getAllHabits()
-    }
 
     fun getSortedList(type: HabitType): List<HabitEntity> {
-        var list = habits.value!!
+        var list = habits.value ?: listOf()
         list = if (type == HabitType.Good) list.filter { n -> n.type == HabitType.Good }
             else list.filter{n -> n.type == HabitType.Bad}
         list = if (isSortByAscendingIds.value!!) list.sortedBy { n -> n.id }

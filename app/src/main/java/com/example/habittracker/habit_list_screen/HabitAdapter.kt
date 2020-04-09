@@ -5,15 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.habittracker.R
 import com.example.habittracker.database.HabitEntity
-import com.example.habittracker.databinding.FragmentHabitListBinding
 import com.example.habittracker.editor.HabitEditorFragment
 
-class HabitAdapter(val habitList: List<HabitEntity>) : RecyclerView.Adapter<HabitAdapter.ViewHolder>() {
+class HabitAdapter() :
+    RecyclerView.Adapter<HabitAdapter.ViewHolder>() {
+
+    var data = listOf<HabitEntity>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,23 +31,27 @@ class HabitAdapter(val habitList: List<HabitEntity>) : RecyclerView.Adapter<Habi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_habitlist_item, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.layout_habitlist_item, parent, false)
         return ViewHolder(view)
     }
-    override fun getItemCount() = habitList.size
+
+    override fun getItemCount() = data.size
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.habitName.text = habitList[position].name
-        holder.habitDescription.text = habitList[position].description
-        holder.habitPeriod.text = "Repeat ${habitList[position].repeatCount} times per ${habitList[position].period}"
-        holder.habitPriority.text = "Priority: ${habitList[position].priority}"
-        holder.habitType.text = habitList[position].type.toString()
+        holder.habitName.text = data[position].name
+        holder.habitDescription.text = data[position].description
+        holder.habitPeriod.text =
+            "Repeat ${data[position].repeatCount} times per ${data[position].period}"
+        holder.habitPriority.text = "Priority: ${data[position].priority}"
+        holder.habitType.text = data[position].type.toString()
 
         holder.itemView.setOnClickListener() { v: View? ->
             v!!.findNavController().navigate(
                 R.id.action_mainViewFragment_to_habitEditorFragment,
-                HabitEditorFragment.createBundleWithIndex(habitList[position].id))
+                HabitEditorFragment.createBundleWithIndex(data[position].id)
+            )
         }
     }
 }

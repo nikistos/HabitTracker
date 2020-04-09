@@ -55,34 +55,28 @@ class HabitListFragment : Fragment() {
                 GOOD_HABITS
             )
         }
+        var adapter = HabitAdapter()
+        habitRecycleView.layoutManager = LinearLayoutManager(context)
+        habitRecycleView.adapter = adapter
 
         viewModel.habits.observe(viewLifecycleOwner, Observer { habits ->
-            habitRecycleView.also {
-                habitRecycleView.layoutManager = LinearLayoutManager(context)
-                it.adapter = when (habitType) {
-                    GOOD_HABITS -> HabitAdapter(viewModel.getSortedList(HabitType.Good))
-                    else -> HabitAdapter(viewModel.getSortedList(HabitType.Bad))
+                adapter.data = when (habitType) {
+                    GOOD_HABITS -> viewModel.getSortedList(HabitType.Good)
+                    else -> viewModel.getSortedList(HabitType.Bad)
                 }
-            }
         })
 
         viewModel.filterText.observe(viewLifecycleOwner, Observer {
-            habitRecycleView.also {
-                habitRecycleView.layoutManager = LinearLayoutManager(context)
-                it.adapter = when (habitType) {
-                    GOOD_HABITS -> HabitAdapter(viewModel.getSortedList(HabitType.Good))
-                    else -> HabitAdapter(viewModel.getSortedList(HabitType.Bad))
-                }
+            adapter.data = when (habitType) {
+                GOOD_HABITS -> viewModel.getSortedList(HabitType.Good)
+                else -> viewModel.getSortedList(HabitType.Bad)
             }
         })
 
         viewModel.isSortByAscendingIds.observe(viewLifecycleOwner, Observer {
-            habitRecycleView.also {
-                habitRecycleView.layoutManager = LinearLayoutManager(context)
-                it.adapter = when (habitType) {
-                    GOOD_HABITS -> HabitAdapter(viewModel.getSortedList(HabitType.Good))
-                    else -> HabitAdapter(viewModel.getSortedList(HabitType.Bad))
-                }
+            adapter.data = when (habitType) {
+                GOOD_HABITS -> viewModel.getSortedList(HabitType.Good)
+                else -> viewModel.getSortedList(HabitType.Bad)
             }
         })
 
